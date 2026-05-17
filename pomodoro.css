@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #1a1a2e;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  background-color: #16213e;
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+}
+
+h1 {
+  font-size: 22px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff90;
+}
+
+#modos {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;        /* quebra linha se não couber */
+  justify-content: center;
+}
+
+.btn-modo {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #ffffff15;
+  color: #ffffff90;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.btn-modo.ativo {
+  background-color: #e63946;
+  color: #fff;
+}
+
+.btn-modo:hover {
+  background-color: #ffffff25;
+}
+
+#display {
+  font-size: 72px;
+  font-weight: bold;
+  letter-spacing: 6px;
+  font-variant-numeric: tabular-nums; /* evita o display "pulando" entre números */
+}
+
+#controles {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+#btn-reset,
+#btn-play {
+  border-radius: 50%;
+  border: none;
+  background-color: #ffffff15;
+  color: #fff;
+  cursor: pointer;
+  font-size: 22px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+}
+
+#btn-play {
+  width: 72px;
+  height: 72px;
+  font-size: 28px;
+  background-color: #e63946;
+}
+
+#btn-reset:hover {
+  background-color: #ffffff25;
+}
+
+#btn-play:hover {
+  background-color: #c1121f;
+}
+
+#sessoes {
+  display: flex;
+  gap: 10px;
+}
+
+.bolinha {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ffffff15;
+  border: 2px solid #ffffff30;
+  transition: all 0.3s;
+}
+
+.bolinha.completa {
+  background-color: #e63946;
+  border-color: #e63946;
+}
+
+/* RESPONSIVO  */
+@media (max-width: 480px) {
+
+  #container {
+    padding: 28px 20px;
+    gap: 20px;
+  }
+
+  #display {
+    font-size: 56px;
+    letter-spacing: 4px;
+  }
+
+  .btn-modo {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  #btn-play {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+  }
+
+  #btn-reset {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+}
