@@ -8,10 +8,52 @@ body {
   font-family: sans-serif;
   background-color: #1a1a2e;
   color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden; /* impede scroll horizontal indesejado */
+}
+
+#viewport {
+  width: 100vw;
+  overflow: hidden;
+}
+
+#slider {
+  display: flex;
+  width: 200vw;
+  transition: transform 0.45s ease-in-out;
+}
+
+/* Estado padrão: mostrando a tela 1 (timer) */
+#slider.na-tela-tarefas {
+  transform: translateX(-50%); 
+}
+
+.tela {
+  width: 50%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: flex-start;
+  padding: 40px 0;
+}
+
+/* Botão de navegação entre telas */
+.btn-nav {
+  background: #ffffff10;
+  color: #ffffff70;
+  border: 0.5px solid #ffffff20;
+  border-radius: 20px;
+  padding: 8px 20px;
+  margin: 30px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.btn-nav:hover {
+  background: #ffffff20;
+  color: #fff;
 }
 
 #container {
@@ -36,7 +78,7 @@ h1 {
 #modos {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;        /* quebra linha se não couber */
+  flex-wrap: wrap; 
   justify-content: center;
 }
 
@@ -64,7 +106,7 @@ h1 {
   font-size: 72px;
   font-weight: bold;
   letter-spacing: 6px;
-  font-variant-numeric: tabular-nums; /* evita o display "pulando" entre números */
+  font-variant-numeric: tabular-nums;
 }
 
 #controles {
@@ -151,5 +193,327 @@ h1 {
     width: 48px;
     height: 48px;
     font-size: 18px;
+  }
+}
+
+/* SEÇÃO DE TAREFAS DA SEMANA */
+
+#container-tarefas {
+  width: 90%;
+  max-width: 680px;
+  padding-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+#container-tarefas h2 {
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff50;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+#semana {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* Card de cada dia */
+.day-card {
+  background-color: #16213e;
+  border-radius: 16px;
+  padding: 16px;
+  border: 0.5px solid #ffffff15;
+  transition: border-color 0.2s;
+}
+
+.day-card.dia-hoje {
+  border-color: #e6394650;
+}
+
+/* Cabeçalho do card */
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.day-nome {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff70;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.day-nome.hoje {
+  color: #e63946;
+}
+
+.badge-hoje {
+  font-size: 10px;
+  background: #e6394620;
+  color: #e63946;
+  border-radius: 6px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.btn-add-task {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff12;
+  color: #ffffff60;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-add-task:hover {
+  background: #e63946;
+  color: #fff;
+}
+
+/* Lista de tarefas dentro do card */
+.task-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 20px;
+}
+
+.task-vazia {
+  font-size: 12px;
+  color: #ffffff25;
+  text-align: center;
+  padding: 6px 0;
+}
+
+/* Item de tarefa individual */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #ffffff08;
+  border-radius: 8px;
+  transition: opacity 0.3s;
+}
+
+/* Quando a tarefa está completa, esmaece o item inteiro */
+.task-item.completa {
+  opacity: 0.4;
+}
+
+/* Botão circular de concluir */
+.task-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #e63946;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: transparent;
+}
+
+.task-check.marcado {
+  background: #e63946;
+  color: #fff;
+}
+
+/* Nome da tarefa */
+.task-nome {
+  flex: 1;
+  font-size: 13px;
+  color: #ffffffcc;
+  transition: text-decoration 0.2s;
+}
+
+.task-item.completa .task-nome {
+  text-decoration: line-through;
+}
+
+/* Badge de horas */
+.task-horas {
+  font-size: 11px;
+  color: #ffffff50;
+  background: #ffffff10;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+/* Botão de remover tarefa */
+.btn-remover {
+  background: none;
+  border: none;
+  color: #ffffff25;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.btn-remover:hover {
+  color: #e63946;
+}
+
+/* Rodapé do card: total de horas + barra de progresso */
+.day-footer {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 0.5px solid #ffffff10;
+}
+
+.day-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #ffffff40;
+  margin-bottom: 6px;
+}
+
+.barra-progresso {
+  height: 3px;
+  background: #ffffff10;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.barra-fill {
+  height: 100%;
+  background: #e63946;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* MODAL DE ADICIONAR TAREFA */
+
+.escondido {
+  display: none !important;
+}
+
+#modal-overlay {
+  position: fixed;
+  inset: 0; 
+  background: #00000080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+#modal {
+  background: #16213e;
+  border-radius: 16px;
+  padding: 28px;
+  width: 90%;
+  max-width: 340px;
+  border: 0.5px solid #ffffff20;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#modal h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffffcc;
+  letter-spacing: 1px;
+}
+
+#modal input[type="text"],
+#modal input[type="number"] {
+  background: #ffffff10;
+  border: 0.5px solid #ffffff20;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 14px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#modal input:focus {
+  border-color: #e63946;
+}
+
+#modal-horas-grupo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#modal-horas-grupo label {
+  font-size: 13px;
+  color: #ffffff70;
+  white-space: nowrap;
+}
+
+#modal-horas-grupo input {
+  width: 80px !important;
+  text-align: center;
+}
+
+#modal-botoes {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+#btn-cancelar,
+#btn-confirmar {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#btn-cancelar {
+  background: #ffffff15;
+  color: #ffffff70;
+}
+
+#btn-cancelar:hover {
+  background: #ffffff25;
+}
+
+#btn-confirmar {
+  background: #e63946;
+  color: #fff;
+}
+
+#btn-confirmar:hover {
+  background: #c1121f;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  #semana {
+    grid-template-columns: 1fr; 
   }
 }
