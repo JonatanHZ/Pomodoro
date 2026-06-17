@@ -107,6 +107,26 @@ h1 {
   font-weight: bold;
   letter-spacing: 6px;
   font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+#display:hover {
+  opacity: 0.7;
+}
+
+/* Input de edição inline do timer */
+#input-tempo {
+  font-size: 72px;
+  font-weight: bold;
+  letter-spacing: 6px;
+  font-variant-numeric: tabular-nums;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #e63946;
+  color: #fff;
+  text-align: center;
+  width: 260px;
+  outline: none;
 }
 
 #controles {

@@ -7,16 +7,7 @@
     <title>Pomodoro</title>
 </head>
 <body>
-
-    <!-- 
-        ESTRUTURA DE NAVEGAÇÃO
-        ──────────────────────
-        #viewport  → a "janela": só mostra 100vw de largura, esconde o resto (overflow: hidden)
-        #slider    → o trilho: contém as duas telas lado a lado (width: 200vw)
-        #tela-timer e #tela-tarefas → cada tela ocupa 100vw
-        
-        Navegar entre telas = mover o #slider com transform: translateX()
-    -->
+    
     <div id="viewport">
         <div id="slider">
 
@@ -32,6 +23,7 @@
                     </div>
 
                     <p id="display">25:00</p>
+                    <input type="text" id="input-tempo" class="escondido" maxlength="5" placeholder="25:00" />
 
                     <div id="controles">
                         <button id="btn-reset">↺</button>

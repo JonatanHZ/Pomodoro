@@ -3,6 +3,7 @@ const btnPlay = document.getElementById('btn-play');
 const btnReset = document.getElementById('btn-reset');
 const btnsModo = document.querySelectorAll('.btn-modo');
 const sessoesEl = document.getElementById('sessoes');
+const inputTempo = document.getElementById('input-tempo');
 
 const MAX_SESSOES = 4;
 let sessaoAtual = 0;
@@ -74,7 +75,8 @@ function toggleTimer() {
             atualizarDisplay();
         }, 1000);
     }
-}                              
+}
+
 function resetTimer() {
     clearInterval(intervalo);
     rodando = false;
@@ -82,6 +84,7 @@ function resetTimer() {
     restante = modos[modoAtual];
     atualizarDisplay();
 }
+
 // função pra preencher a bolinha 
 function atualizarBolinha() {
     sessoesEl.innerHTML = '';  
@@ -141,6 +144,44 @@ function tocarSom() {
 
 atualizarDisplay();
 atualizarBolinha();
+
+display.addEventListener('click', function () {
+    if (rodando) return; // não permite editar com o timer rodando
+
+    display.classList.add('escondido');
+    inputTempo.classList.remove('escondido');
+    inputTempo.value = display.textContent;
+    inputTempo.focus();
+    inputTempo.select();
+});
+
+function salvarNovoTempo() {
+    const partes = inputTempo.value.split(':');
+    const minutos = parseInt(partes[0]);
+    const segundos = parseInt(partes[1]) || 0;
+
+    // Valida se é um formato MM:SS válido
+    if (!isNaN(minutos) && minutos >= 0) {
+        const totalSegundos = (minutos * 60) + segundos;
+        modos[modoAtual] = totalSegundos; // atualiza o modo atual
+        restante = totalSegundos;
+        atualizarDisplay();
+    }
+
+    // Volta pro display independente de ter salvo ou não
+    inputTempo.classList.add('escondido');
+    display.classList.remove('escondido');
+}
+
+inputTempo.addEventListener('blur', salvarNovoTempo);
+
+inputTempo.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') inputTempo.blur(); // dispara o blur que já salva
+    if (e.key === 'Escape') {                 // cancela sem salvar
+        inputTempo.classList.add('escondido');
+        display.classList.remove('escondido');
+    }
+});
 
 /* LÓGICA DE TAREFAS DA SEMANA  */
 
@@ -378,7 +419,6 @@ const btnVoltarTimer = document.getElementById('btn-voltar-timer');
 
 btnIrTarefas.addEventListener('click', function() {
     slider.classList.add('na-tela-tarefas');
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
